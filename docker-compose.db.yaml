@@ -1,0 +1,42 @@
+
+services:
+  company1:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=company1
+      - POSTGRES_PASSWORD=company1
+      - POSTGRES_DB=company1
+    ports:
+      - '5433:5432'
+    volumes:
+      - company1:/var/lib/postgresql/data
+  company2:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=company2
+      - POSTGRES_PASSWORD=company2
+      - POSTGRES_DB=company2
+    ports:
+      - '5434:5432'
+    volumes:
+      - company2:/var/lib/postgresql/data
+  company3:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=company3
+      - POSTGRES_PASSWORD=company3
+      - POSTGRES_DB=company3
+    ports:
+      - '5435:5432'
+    volumes:
+      - company3:/var/lib/postgresql/data
+volumes:
+  company1:
+    driver: local
+  company2:
+    driver: local
+  company3:
+    driver: local
