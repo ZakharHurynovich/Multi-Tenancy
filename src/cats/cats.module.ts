@@ -5,7 +5,7 @@ import { CatsService } from './cats.service';
 import { getDataSourceToken } from '@nestjs/typeorm';
 import { TenancyDatabase } from 'src/tenancy/tenancy.enum';
 import { REQUEST } from '@nestjs/core';
-import { injectDatabaseConnection } from 'src/tenancy/tenancy.utils';
+import { injectDependencies } from 'src/tenancy/tenancy.utils';
 
 @Module({
   imports: [TenancyModule],
@@ -13,7 +13,7 @@ import { injectDatabaseConnection } from 'src/tenancy/tenancy.utils';
   providers: [
     {
       provide: CatsService,
-      useFactory: injectDatabaseConnection(CatsService),
+      useFactory: injectDependencies(CatsService),
       inject: [
         REQUEST,
         getDataSourceToken(TenancyDatabase.Database1),

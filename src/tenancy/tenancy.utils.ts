@@ -27,7 +27,7 @@ function getDatabaseConnectionByName(
   }
 }
 
-export function injectDatabaseConnection<T>(service: ClassType<T>) {
+export function injectDependencies<T>(service: ClassType<T>) {
   return (
     request: Request,
     database1: DataSource,
