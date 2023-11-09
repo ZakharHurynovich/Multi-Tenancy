@@ -1,9 +1,16 @@
 import { Module } from '@nestjs/common';
 import { TenancyModule } from './tenancy/tenancy.module';
+import { ConfigModule } from '@nestjs/config';
 import { CatsModule } from './cats/cats.module';
 
 @Module({
-  imports: [CatsModule, TenancyModule],
+  imports: [
+    TenancyModule,
+    CatsModule,
+    ConfigModule.forRoot({
+      envFilePath: '.env',
+    }),
+  ],
   controllers: [],
   providers: [],
 })

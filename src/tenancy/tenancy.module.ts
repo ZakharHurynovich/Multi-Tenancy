@@ -1,26 +1,15 @@
 import { Global, Module } from '@nestjs/common';
-import { DatabaseTypes } from 'src/app.types';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { TenancyName } from './tenancy.enum';
-import TenancyService from './tenancy.service';
-import { REQUEST } from '@nestjs/core';
-
+import TenancyFactory from './tenancy.factory';
+import { TenancyDatabase } from './tenancy.enum';
 @Global()
 @Module({
-  imports: [TypeOrmModule],
-  controllers: [],
-  providers: [
-    {
-      provide: DatabaseTypes.DataSource,
-      useFactory: async (request: Request) => {
-        const header = request.headers['x-tenant-name'] as TenancyName;
-
-        return new TenancyService().connection(header);
-      },
-      inject: [REQUEST],
-    },
-    TenancyService,
+  imports: [
+    TenancyFactory.get(TenancyDatabase.Database1),
+    TenancyFactory.get(TenancyDatabase.Database2),
+    TenancyFactory.get(TenancyDatabase.Database3),
   ],
-  exports: [DatabaseTypes.DataSource],
+  controllers: [],
+  providers: [],
+  exports: [],
 })
 export class TenancyModule {}
